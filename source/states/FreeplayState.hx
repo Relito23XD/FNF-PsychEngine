@@ -111,47 +111,47 @@ class FreeplayState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
-     function addSong(songName:String, weekIndex:Int, character:String, color:Int)
-    {
-      var songIndex = songs.length;
-      songs.push(new SongMetadata(songName, weekIndex, character, color));
+		var bgSongSprites:Array<FlxSprite> = []; // Array para almacenar las imágenes de fondo
 
-      var bgImage = new FlxSprite(50, 100 + songIndex * 60); // Ajusta posición X/Y
-      bgImage.loadGraphic(Paths.image('freeplay/BGSong')); // Usa tu imagen aquí
-      bgImage.scrollFactor.set();
-      bgImage.antialiasing = ClientPrefs.data.antialiasing;
-      add(bgImage); // Añade primero para que esté detrás
+for (i in 0...songs.length) {
 
-        var songText = new Alphabet(100, 100 + songIndex * 60, songName, true, false);
-        grpSongs.add(songText); // Añade encima de la imagen
-        }
+   // Cargar la imagen de fondo para la canción
+    var bgSong:FlxSprite = new FlxSprite().loadGraphic(Paths.image('freeplay/BGSong'));
+    bgSong.antialiasing = ClientPrefs.data.antialiasing;
+    add(bgSong);
+    bgSongSprites.push(bgSong);
 
-		for (i in 0...songs.length)
-		{
-			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
-			songText.targetY = i;
-			grpSongs.add(songText);
+    // Crear el texto de la canción
+    var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
+    songText.targetY = i;
+    grpSongs.add(songText);
+    songText.scaleX = Math.min(1, 980 / songText.width);
+    songText.snapToPosition();
 
-			songText.scaleX = Math.min(1, 980 / songText.width);
-			songText.snapToPosition();
+    // Cargar la imagen de fondo para la canción
+    var bgSong:FlxSprite = new FlxSprite().loadGraphic(Paths.image('freeplay/BGSong'));
+    bgSong.antialiasing = ClientPrefs.data.antialiasing;
+    add(bgSong);
+	add(grpSongs);
+    add(grpIcons);
+    add(grpWeekText);
+    bgSongSprites.push(bgSong);
 
-			Mods.currentModDirectory = songs[i].folder;
-			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
-			icon.sprTracker = songText;
+    // Posicionar la imagen de fondo
+    bgSong.y = 60; // Ajusta este valor según sea necesario
 
-			
-			// too laggy with a lot of songs, so i had to recode the logic for it
-			songText.visible = songText.active = songText.isMenuItem = false;
-			icon.visible = icon.active = false;
+    // Configurar el icono del personaje
+    Mods.currentModDirectory = songs[i].folder;
+    var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
+    icon.sprTracker = songText;
 
-			// using a FlxGroup is too much fuss!
-			iconArray.push(icon);
-			add(icon);
+    // Configurar visibilidad y actividad
+    songText.visible = songText.active = songText.isMenuItem = false;
+    icon.visible = icon.active = false;
+    iconArray.push(icon);
+    add(icon);
+}
 
-			// songText.x += 40;
-			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
-			// songText.screenCenter(X);
-		}
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
