@@ -111,6 +111,21 @@ class FreeplayState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
+     function addSong(songName:String, weekIndex:Int, character:String, color:Int)
+    {
+      var songIndex = songs.length;
+      songs.push(new SongMetadata(songName, weekIndex, character, color));
+
+      var bgImage = new FlxSprite(50, 100 + songIndex * 60); // Ajusta posición X/Y
+      bgImage.loadGraphic(Paths.image('freeplay/BGSong')); // Usa tu imagen aquí
+      bgImage.scrollFactor.set();
+      bgImage.antialiasing = ClientPrefs.data.antialiasing;
+      add(bgImage); // Añade primero para que esté detrás
+
+        var songText = new Alphabet(100, 100 + songIndex * 60, songName, true, false);
+        grpSongs.add(songText); // Añade encima de la imagen
+        }
+
 		for (i in 0...songs.length)
 		{
 			var songText:Alphabet = new Alphabet(90, 320, songs[i].songName, true);
