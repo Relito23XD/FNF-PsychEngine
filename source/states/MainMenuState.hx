@@ -31,7 +31,7 @@ class MainMenuState extends MusicBeatState
 		'credits'
 	];
 
-	var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
+	var leftOption:String = null; 
 	var rightOption:String = 'options';
 
 	var magenta:FlxSprite;
@@ -86,8 +86,9 @@ class MainMenuState extends MusicBeatState
 			item.screenCenter(X);
 		}
 
-		if (leftOption != null)
-			leftItem = createMenuItem(leftOption, 60, 490);
+	// if (leftOption != null)
+   //     leftItem = createMenuItem(leftOption, 60, 490);
+
 		if (rightOption != null)
 		{
 			rightItem = createMenuItem(rightOption, FlxG.width - 60, 490);
@@ -304,8 +305,8 @@ class MainMenuState extends MusicBeatState
 						#end
 
 						#if ACHIEVEMENTS_ALLOWED
-						case 'achievements':
-							MusicBeatState.switchState(new AchievementsMenuState());
+						//case 'achievements':
+							//MusicBeatState.switchState(new AchievementsMenuState());
 						#end
 
 						case 'credits':

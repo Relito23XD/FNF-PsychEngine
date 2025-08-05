@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\assets",
+    "\\assets\\embed",
+    "\\assets\\embed\\images",
+    "\\assets\\embed\\images\\psych-ui",
+    "\\assets\\exclude\\images",
+    "\\assets\\shared\\data",
+    "\\source",
+    "\\source\\backend"
+  ],
+  "SelectedNode": "\\source\\backend\\Achievements.hx",
+  "PreviewInSolutionExplorer": false
+}
